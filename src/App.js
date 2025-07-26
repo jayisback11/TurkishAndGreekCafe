@@ -11,8 +11,22 @@ import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 import data from "./data.json";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    const themeColor = data.theme.color; // your new color
+    let metaTag = document.querySelector('meta[name="theme-color"]');
+
+    if (metaTag) {
+      metaTag.setAttribute("content", themeColor);
+    } else {
+      metaTag = document.createElement("meta");
+      metaTag.name = "theme-color";
+      metaTag.content = themeColor;
+      document.head.appendChild(metaTag);
+    }
+  }, []);
   return (
     <div id="app">
       <Navbar expand="lg" className="fixed-top bg-body-tertiary shadow">
